@@ -1421,31 +1421,37 @@ export default function App() {
                 <span style={{ fontSize: '0.9rem' }}>{expandedDomain === domain.id ? '−' : '+'}</span>
                 What are the recommended controls for this domain?
               </button>
-              {expandedDomain === domain.id && (
-                <div style={{ padding: '0 1.25rem 1rem 1.25rem' }}>
-                  {domain.controls.map((ctrl, i) => (
-                    <div key={i} style={{
-                      padding: '0.85rem',
-                      background: 'var(--bg-card)',
-                      borderRadius: '8px',
-                      marginBottom: i < domain.controls.length - 1 ? '0.5rem' : 0,
+              <div 
+                style={{ 
+                  maxHeight: expandedDomain === domain.id ? '500px' : '0',
+                  opacity: expandedDomain === domain.id ? 1 : 0,
+                  overflow: 'hidden',
+                  transition: 'max-height 0.3s ease, opacity 0.3s ease',
+                  padding: expandedDomain === domain.id ? '0 1.25rem 1rem 1.25rem' : '0 1.25rem',
+                }}
+              >
+                {domain.controls.map((ctrl, i) => (
+                  <div key={i} style={{
+                    padding: '0.85rem',
+                    background: 'var(--bg-card)',
+                    borderRadius: '8px',
+                    marginBottom: i < domain.controls.length - 1 ? '0.5rem' : 0,
+                  }}>
+                    <div style={{
+                      fontFamily: 'var(--font-body)',
+                      fontSize: '0.82rem',
+                      fontWeight: 600,
+                      color: 'var(--text-primary)',
+                      marginBottom: '0.3rem',
                     }}>
-                      <div style={{
-                        fontFamily: 'var(--font-body)',
-                        fontSize: '0.82rem',
-                        fontWeight: 600,
-                        color: 'var(--text-primary)',
-                        marginBottom: '0.3rem',
-                      }}>
-                        {ctrl.title}
-                      </div>
-                      <div style={{ fontSize: '0.78rem', color: 'var(--text-secondary)', lineHeight: 1.55 }}>
-                        {ctrl.description}
-                      </div>
+                      {ctrl.title}
                     </div>
-                  ))}
-                </div>
-              )}
+                    <div style={{ fontSize: '0.78rem', color: 'var(--text-secondary)', lineHeight: 1.55 }}>
+                      {ctrl.description}
+                    </div>
+                  </div>
+                ))}
+              </div>
             </div>
 
             {/* Navigation */}
