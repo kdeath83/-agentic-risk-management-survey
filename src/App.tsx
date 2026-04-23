@@ -1138,6 +1138,7 @@ export default function App() {
   const [section, setSection] = useState(0) // 0=intro, 1..7=domains, 8=results
   const [answers, setAnswers] = useState<Answers>({})
   const [expandedDomain, setExpandedDomain] = useState<string | null>(null)
+  const [modalDomain, setModalDomain] = useState<string | null>(null)
   const topRef = useRef<HTMLDivElement>(null)
 
   const domain = section >= 1 && section <= 7 ? DOMAINS[section - 1] : null
@@ -1390,68 +1391,30 @@ export default function App() {
               ))}
             </div>
 
-            {/* Controls Reference */}
-            <div
-              key={`controls-wrapper-${domain.id}`}
+            {/* Controls Reference - Opens in Modal */}
+            <button
+              onClick={() => setModalDomain(domain.id)}
               style={{
-                background: `${domain.color}06`,
-                border: `1px solid ${domain.color}20`,
+                width: '100%',
+                padding: '0.85rem 1.25rem',
+                cursor: 'pointer',
+                fontFamily: 'var(--font-body)',
+                fontSize: '0.85rem',
+                fontWeight: 600,
+                color: domain.color,
+                border: `1px solid ${domain.color}40`,
                 borderRadius: '10px',
+                background: `${domain.color}08`,
+                display: 'flex',
+                alignItems: 'center',
+                gap: '0.5rem',
+                textAlign: 'left',
                 marginBottom: '1.75rem',
-                overflow: 'hidden',
               }}
             >
-              <button
-                onClick={() => setExpandedDomain(expandedDomain === domain.id ? null : domain.id)}
-                style={{
-                  width: '100%',
-                  padding: '0.85rem 1.25rem',
-                  cursor: 'pointer',
-                  fontFamily: 'var(--font-body)',
-                  fontSize: '0.85rem',
-                  fontWeight: 600,
-                  color: domain.color,
-                  border: 'none',
-                  background: 'transparent',
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '0.5rem',
-                  textAlign: 'left',
-                }}
-              >
-                <span style={{ fontSize: '0.9rem' }}>{expandedDomain === domain.id ? '−' : '+'}</span>
-                What are the recommended controls for this domain?
-              </button>
-              <div 
-                key={`controls-content-${domain.id}`}
-                style={{ 
-                  display: expandedDomain === domain.id ? 'block' : 'none',
-                  padding: '0 1.25rem 1rem 1.25rem',
-                }}
-              >
-                {domain.controls.map((ctrl, i) => (
-                  <div key={`${domain.id}-ctrl-${i}`} style={{
-                    padding: '0.85rem',
-                    background: 'var(--bg-card)',
-                    borderRadius: '8px',
-                    marginBottom: i < domain.controls.length - 1 ? '0.5rem' : 0,
-                  }}>
-                    <div style={{
-                      fontFamily: 'var(--font-body)',
-                      fontSize: '0.82rem',
-                      fontWeight: 600,
-                      color: 'var(--text-primary)',
-                      marginBottom: '0.3rem',
-                    }}>
-                      {ctrl.title}
-                    </div>
-                    <div style={{ fontSize: '0.78rem', color: 'var(--text-secondary)', lineHeight: 1.55 }}>
-                      {ctrl.description}
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
+              <span style={{ fontSize: '0.9rem' }}>+</span>
+              View recommended controls for this domain
+            </button>
 
             {/* Navigation */}
             <div style={{ display: 'flex', gap: '0.75rem' }}>
@@ -1516,6 +1479,62 @@ export default function App() {
             display: 'flex',
             justifyContent: 'center',
             gap: '0.4rem',
+            marginTop: '2rem',
+            flexWrap: 'wrap',
+          }}>
+            {DOMAINS.map(d => (
+              <button
+                key={d.id}
+                onClick={() => setSection(d.number)}
+                style={{
+                  width: '8px',
+                  height: '8px',
+                  borderRadius: '50%',
+                  border: 'none',
+                  cursor: 'pointer',
+                  padding: 0,
+                  background: section === d.number ? d.color : 'var(--border)',
+                  transition: 'all 0.2s ease',
+                  transform: section === d.number ? 'scale(1.3)' : 'scale(1)',
+                }}
+                title={d.title}
+              />
+            ))}
+          </div>
+        )}
+
+        {/* Restart */}
+        {section === 8 && (
+          <div style={{ textAlign: 'center', marginTop: '2rem' }}>
+            <button
+              onClick={() => { setSection(0); setAnswers({}); setExpandedDomain(null) }}
+              style={{
+                padding: '0.6rem 1.5rem',
+                background: 'transparent',
+                color: 'var(--text-secondary)',
+                border: '1px solid var(--border)',
+                borderRadius: '8px',
+                cursor: 'pointer',
+                fontFamily: 'var(--font-body)',
+                fontSize: '0.82rem',
+              }}
+            >
+              Retake Assessment
+            </button>
+          </div>
+        )}
+      </div>
+    </div>
+  )
+}
+         </button>
+          </div>
+        )}
+      </div>
+    </div>
+  )
+}
+       gap: '0.4rem',
             marginTop: '2rem',
             flexWrap: 'wrap',
           }}>
