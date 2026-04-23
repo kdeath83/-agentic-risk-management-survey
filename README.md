@@ -1,7 +1,7 @@
 # Agent Risk Management — Self-Assessment Survey
 
 A structured diagnostic tool for organisations deploying AI agents in financial services. Assesses maturity across 7 risk management domains with scoring, prioritised recommendations, and regulatory alignment.
-Inspired by the brilliant thoughts of Quinton Anderson: https://quintona.github.io/blog/posts/agent_risk_management_overview/
+Inspired by the incisive thoughts of Quinton Anderson: https://quintona.github.io/blog/posts/agent_risk_management_overview/
 
 **Live:** https://ai-risk-survey.vercel.app
 
