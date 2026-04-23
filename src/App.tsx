@@ -1392,6 +1392,7 @@ export default function App() {
 
             {/* Controls Reference */}
             <div
+              key={`controls-wrapper-${domain.id}`}
               style={{
                 background: `${domain.color}06`,
                 border: `1px solid ${domain.color}20`,
@@ -1422,13 +1423,14 @@ export default function App() {
                 What are the recommended controls for this domain?
               </button>
               <div 
+                key={`controls-content-${domain.id}`}
                 style={{ 
                   display: expandedDomain === domain.id ? 'block' : 'none',
                   padding: '0 1.25rem 1rem 1.25rem',
                 }}
               >
                 {domain.controls.map((ctrl, i) => (
-                  <div key={i} style={{
+                  <div key={`${domain.id}-ctrl-${i}`} style={{
                     padding: '0.85rem',
                     background: 'var(--bg-card)',
                     borderRadius: '8px',
