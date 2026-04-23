@@ -1474,13 +1474,14 @@ export default function App() {
               )}
               <button
                 onClick={() => {
-                  if (section === 7 && allAnsweredForDomain) {
-                    setSection(8)
-                  } else if (allAnsweredForDomain) {
-                    setSection((s) => s + 1)
-                  } else {
-                    setSection((s) => s + 1)
-                  }
+                  // Defer state update to prevent visual glitch during click
+                  setTimeout(() => {
+                    if (section === 7 && allAnsweredForDomain) {
+                      setSection(8)
+                    } else {
+                      setSection((s) => s + 1)
+                    }
+                  }, 0)
                 }}
                 style={{
                   flex: 1,
@@ -1493,7 +1494,6 @@ export default function App() {
                   fontFamily: 'var(--font-body)',
                   fontSize: '0.875rem',
                   fontWeight: 600,
-                  transition: 'all 0.2s ease',
                 }}
                 disabled={!allAnsweredForDomain}
               >
