@@ -1348,7 +1348,7 @@ export default function App() {
 
         {/* ── DOMAIN SECTION ── */}
         {domain && (
-          <div key={section} style={{ animation: 'fadeUp 0.5s ease' }}>
+          <div key={section}>
             <ProgressBar current={section} total={7} />
 
             {/* Domain Header */}
@@ -1556,6 +1556,13 @@ export default function App() {
             >
               Retake Assessment
             </button>
+          </div>
+        )}
+      </div>
+    </div>
+  )
+}
+         </button>
           </div>
         )}
       </div>
