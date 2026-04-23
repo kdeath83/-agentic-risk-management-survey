@@ -1423,11 +1423,8 @@ export default function App() {
               </button>
               <div 
                 style={{ 
-                  maxHeight: expandedDomain === domain.id ? '500px' : '0',
-                  opacity: expandedDomain === domain.id ? 1 : 0,
-                  overflow: 'hidden',
-                  transition: 'max-height 0.3s ease, opacity 0.3s ease',
-                  padding: expandedDomain === domain.id ? '0 1.25rem 1rem 1.25rem' : '0 1.25rem',
+                  display: expandedDomain === domain.id ? 'block' : 'none',
+                  padding: '0 1.25rem 1rem 1.25rem',
                 }}
               >
                 {domain.controls.map((ctrl, i) => (
