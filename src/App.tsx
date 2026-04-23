@@ -1523,67 +1523,105 @@ export default function App() {
             </button>
           </div>
         )}
-      </div>
-    </div>
-  )
-}
-         </button>
-          </div>
-        )}
-      </div>
-    </div>
-  )
-}
-       gap: '0.4rem',
-            marginTop: '2rem',
-            flexWrap: 'wrap',
-          }}>
-            {DOMAINS.map(d => (
-              <button
-                key={d.id}
-                onClick={() => setSection(d.number)}
-                style={{
-                  width: '8px',
-                  height: '8px',
-                  borderRadius: '50%',
-                  border: 'none',
-                  cursor: 'pointer',
-                  padding: 0,
-                  background: section === d.number ? d.color : 'var(--border)',
-                  transition: 'all 0.2s ease',
-                  transform: section === d.number ? 'scale(1.3)' : 'scale(1)',
-                }}
-                title={d.title}
-              />
-            ))}
-          </div>
-        )}
 
-        {/* Restart */}
-        {section === 8 && (
-          <div style={{ textAlign: 'center', marginTop: '2rem' }}>
-            <button
-              onClick={() => { setSection(0); setAnswers({}); setExpandedDomain(null) }}
+        {/* Controls Modal */}
+        {modalDomain && (
+          <div 
+            onClick={() => setModalDomain(null)}
+            style={{
+              position: 'fixed',
+              top: 0,
+              left: 0,
+              right: 0,
+              bottom: 0,
+              background: 'rgba(0,0,0,0.5)',
+              backdropFilter: 'blur(4px)',
+              zIndex: 1000,
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              padding: '2rem',
+            }}
+          >
+            <div 
+              onClick={(e) => e.stopPropagation()}
               style={{
-                padding: '0.6rem 1.5rem',
-                background: 'transparent',
-                color: 'var(--text-secondary)',
-                border: '1px solid var(--border)',
-                borderRadius: '8px',
-                cursor: 'pointer',
-                fontFamily: 'var(--font-body)',
-                fontSize: '0.82rem',
+                background: 'var(--bg-card)',
+                borderRadius: '16px',
+                maxWidth: '600px',
+                width: '100%',
+                maxHeight: '80vh',
+                overflow: 'auto',
+                padding: '2rem',
+                boxShadow: '0 25px 50px rgba(0,0,0,0.25)',
               }}
             >
-              Retake Assessment
-            </button>
-          </div>
-        )}
-      </div>
-    </div>
-  )
-}
-         </button>
+              {(() => {
+                const modalD = DOMAINS.find(d => d.id === modalDomain)
+                if (!modalD) return null
+                return (
+                  <>
+                    <div style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'space-between',
+                      marginBottom: '1.5rem',
+                    }}>
+                      <h2 style={{
+                        fontFamily: 'var(--font-display)',
+                        fontSize: '1.3rem',
+                        fontWeight: 600,
+                        color: modalD.color,
+                        margin: 0,
+                      }}>
+                        {modalD.title}
+                      </h2>
+                      <button
+                        onClick={() => setModalDomain(null)}
+                        style={{
+                          background: 'none',
+                          border: 'none',
+                          fontSize: '1.5rem',
+                          cursor: 'pointer',
+                          color: 'var(--text-secondary)',
+                          padding: '0.25rem',
+                          lineHeight: 1,
+                        }}
+                      >
+                        ×
+                      </button>
+                    </div>
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+                      {modalD.controls.map((ctrl, i) => (
+                        <div key={i} style={{
+                          padding: '1rem',
+                          background: `${modalD.color}08`,
+                          borderRadius: '10px',
+                          border: `1px solid ${modalD.color}20`,
+                        }}>
+                          <div style={{
+                            fontFamily: 'var(--font-body)',
+                            fontSize: '0.9rem',
+                            fontWeight: 600,
+                            color: 'var(--text-primary)',
+                            marginBottom: '0.5rem',
+                          }}>
+                            {ctrl.title}
+                          </div>
+                          <div style={{ 
+                            fontSize: '0.85rem', 
+                            color: 'var(--text-secondary)', 
+                            lineHeight: 1.6 
+                          }}>
+                            {ctrl.description}
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </>
+                )
+              })()}
+            </div>
           </div>
         )}
       </div>
