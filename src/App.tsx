@@ -1390,8 +1390,7 @@ export default function App() {
             </div>
 
             {/* Controls Reference */}
-            <details
-              open={expandedDomain === domain.id}
+            <div
               style={{
                 background: `${domain.color}06`,
                 border: `1px solid ${domain.color}20`,
@@ -1400,51 +1399,53 @@ export default function App() {
                 overflow: 'hidden',
               }}
             >
-              <summary
-                onClick={(e) => {
-                  e.preventDefault()
-                  setExpandedDomain(expandedDomain === domain.id ? null : domain.id)
-                }}
+              <button
+                onClick={() => setExpandedDomain(expandedDomain === domain.id ? null : domain.id)}
                 style={{
+                  width: '100%',
                   padding: '0.85rem 1.25rem',
                   cursor: 'pointer',
                   fontFamily: 'var(--font-body)',
                   fontSize: '0.85rem',
                   fontWeight: 600,
                   color: domain.color,
-                  listStyle: 'none',
+                  border: 'none',
+                  background: 'transparent',
                   display: 'flex',
                   alignItems: 'center',
                   gap: '0.5rem',
+                  textAlign: 'left',
                 }}
               >
                 <span style={{ fontSize: '0.9rem' }}>{expandedDomain === domain.id ? '−' : '+'}</span>
                 What are the recommended controls for this domain?
-              </summary>
-              <div style={{ padding: '0 1.25rem 1rem 1.25rem' }}>
-                {domain.controls.map((ctrl, i) => (
-                  <div key={i} style={{
-                    padding: '0.85rem',
-                    background: 'var(--bg-card)',
-                    borderRadius: '8px',
-                    marginBottom: i < domain.controls.length - 1 ? '0.5rem' : 0,
-                  }}>
-                    <div style={{
-                      fontFamily: 'var(--font-body)',
-                      fontSize: '0.82rem',
-                      fontWeight: 600,
-                      color: 'var(--text-primary)',
-                      marginBottom: '0.3rem',
+              </button>
+              {expandedDomain === domain.id && (
+                <div style={{ padding: '0 1.25rem 1rem 1.25rem' }}>
+                  {domain.controls.map((ctrl, i) => (
+                    <div key={i} style={{
+                      padding: '0.85rem',
+                      background: 'var(--bg-card)',
+                      borderRadius: '8px',
+                      marginBottom: i < domain.controls.length - 1 ? '0.5rem' : 0,
                     }}>
-                      {ctrl.title}
+                      <div style={{
+                        fontFamily: 'var(--font-body)',
+                        fontSize: '0.82rem',
+                        fontWeight: 600,
+                        color: 'var(--text-primary)',
+                        marginBottom: '0.3rem',
+                      }}>
+                        {ctrl.title}
+                      </div>
+                      <div style={{ fontSize: '0.78rem', color: 'var(--text-secondary)', lineHeight: 1.55 }}>
+                        {ctrl.description}
+                      </div>
                     </div>
-                    <div style={{ fontSize: '0.78rem', color: 'var(--text-secondary)', lineHeight: 1.55 }}>
-                      {ctrl.description}
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </details>
+                  ))}
+                </div>
+              )}
+            </div>
 
             {/* Navigation */}
             <div style={{ display: 'flex', gap: '0.75rem' }}>
