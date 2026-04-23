@@ -1392,7 +1392,6 @@ export default function App() {
             {/* Controls Reference */}
             <details
               open={expandedDomain === domain.id}
-              onToggle={() => setExpandedDomain(expandedDomain === domain.id ? null : domain.id)}
               style={{
                 background: `${domain.color}06`,
                 border: `1px solid ${domain.color}20`,
@@ -1401,18 +1400,24 @@ export default function App() {
                 overflow: 'hidden',
               }}
             >
-              <summary style={{
-                padding: '0.85rem 1.25rem',
-                cursor: 'pointer',
-                fontFamily: 'var(--font-body)',
-                fontSize: '0.85rem',
-                fontWeight: 600,
-                color: domain.color,
-                listStyle: 'none',
-                display: 'flex',
-                alignItems: 'center',
-                gap: '0.5rem',
-              }}>
+              <summary
+                onClick={(e) => {
+                  e.preventDefault()
+                  setExpandedDomain(expandedDomain === domain.id ? null : domain.id)
+                }}
+                style={{
+                  padding: '0.85rem 1.25rem',
+                  cursor: 'pointer',
+                  fontFamily: 'var(--font-body)',
+                  fontSize: '0.85rem',
+                  fontWeight: 600,
+                  color: domain.color,
+                  listStyle: 'none',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '0.5rem',
+                }}
+              >
                 <span style={{ fontSize: '0.9rem' }}>{expandedDomain === domain.id ? '−' : '+'}</span>
                 What are the recommended controls for this domain?
               </summary>
