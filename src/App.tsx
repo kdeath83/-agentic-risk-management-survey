@@ -1144,13 +1144,8 @@ export default function App() {
 
   useEffect(() => {
     if (section > 0) {
-      // Delay scroll to prevent Safari flickering during state transitions
-      const timer = setTimeout(() => {
-        requestAnimationFrame(() => {
-          topRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' })
-        })
-      }, 100)
-      return () => clearTimeout(timer)
+      // Instant scroll without animation to prevent flickering
+      topRef.current?.scrollIntoView({ behavior: 'auto', block: 'start' })
     }
   }, [section])
 
